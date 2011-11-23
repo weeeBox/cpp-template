@@ -42,7 +42,10 @@ public:
 	{
 	public:
 		Ref() : _ref() {}
-		Ref(ObjectVector* obj) : _ref(obj) {}
+		Ref(ObjectVector* obj) : _ref(obj) {}		
+		Ref(const Ref& ref) : _ref(ref) {};
+
+		explicit Ref(bool isStatic) : _ref(isStatic) {}
 
 		inline Ref& operator << (const T& val) { ((ObjectVector*)m_object)->__internalAdd(val); return *this; }
 		inline T& operator[] (int index) { return (*(ObjectVector*)m_object)[index]; }
