@@ -25,18 +25,14 @@ public:
 
 //////////////////////////////////////////////////////////////////////////
 
-#define __TYPENAME_H(typeName)  static inline void __hack() { typeName##_ref _hack = typeName##_ref((AsObject*)0); } \
-	protected: virtual const char* __internalTypename(int depth); public: static const char* __internalTypename()
-
-#define __TYPENAME_CPP_EX(CLASS, BASE, NAME) const char* CLASS::__internalTypename() { return #NAME; } \
-	const char* CLASS::__internalTypename(int depth) { if (depth) return BASE::__internalTypename(depth - 1); else return __internalTypename(); }
-
-#define __TYPENAME_CPP(CLASS, BASE) __TYPENAME_CPP_EX(CLASS, BASE, CLASS)
+#define __TYPENAME(NAME, BASE) public: inline static const char* __internalTypename() { return #NAME; } \
+	protected: const char* __internalTypename(int depth) { if (depth) return BASE::__internalTypename(depth - 1); else return __internalTypename(); }
+	
 
 #define __INSTANCEOF(obj, typeName) (obj != 0 && obj->__internalInstanceOf(typeName::__internalTypename()))
 
 #define __NEW(objType, initializer) objType::__create##objType initializer
-#define __NEWARRAY(arrayType, size) ((arrayType##_ref)(arrayType::__createArray(size)))
+#define __NEWVECTOR(vectorType, size) vectorType::__createVector(size)
 
 #define __NULL AsObject::__null__
 
@@ -102,17 +98,10 @@ template<class T> class _ref : public ReferenceBase
 public:
 	_ref() : ReferenceBase() {}
 	_ref(const ReferenceBase& ref) : ReferenceBase(ref) {};
-	_ref(T* obj) : ReferenceBase(obj) { ASSERT(!obj || JINSTANCEOF(obj,T)); }
+	_ref(T* obj) : ReferenceBase(obj) { ASSERT(!obj || __INSTANCEOF(obj,T)); }
 	explicit _ref(bool isStatic) : ReferenceBase(isStatic) {}
 
-	inline T* operator->() const 
-	{
-		if(m_object == 0)
-		{
-			ASSERT(m_object); 
-		}
-		return (T*)m_object; 
-	}
+	inline T* operator->() const { ASSERT(m_object); return (T*)m_object; }
 
 	inline _ref& operator=(const _ref& ref)
 	{
@@ -134,15 +123,13 @@ public:
 	AsObject();
 	virtual ~AsObject();
 
-	__TYPENAME_H(AsObject);
+protected: 
+	virtual const char* __internalTypename(int depth);
+
+public: 
+	static const char* __internalTypename();
 
 	bool __internalInstanceOf(const char* typeName);
-	void __removeChildReferences();
-
-	const char * __internalGetTypeName()
-	{
-		return __internalTypename(0);
-	}
 
 public:
 	static AsObject_ref __createAsObject();	

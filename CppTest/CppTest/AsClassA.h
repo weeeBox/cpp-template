@@ -13,7 +13,7 @@ typedef _ref<AsClassB> AsClassB_ref;
 class AsClassA : public AsBaseClass
 {
 public:
-	__TYPENAME_H(AsClassA);
+	__TYPENAME(AsClassA, AsBaseClass);
 	
 public:
 	AsClassB_ref classB;

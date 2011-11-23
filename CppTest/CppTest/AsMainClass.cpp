@@ -7,8 +7,6 @@
 #include "AsClassB.h"
 #include "AsClassC.h"
  
-__TYPENAME_CPP(AsMainClass,AsObject)
- 
 AsMainClass_ref AsMainClass::instance(true);
  
 void AsMainClass::init()

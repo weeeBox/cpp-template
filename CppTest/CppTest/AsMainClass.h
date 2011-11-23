@@ -17,7 +17,7 @@ typedef _ref<AsClassC> AsClassC_ref;
 class AsMainClass : public AsObject
 {
 public:
-	__TYPENAME_H(AsMainClass);
+	__TYPENAME(AsMainClass, AsObject);
 	
 public:
 	AsClassA_ref classA;

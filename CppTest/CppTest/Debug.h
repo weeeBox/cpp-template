@@ -1,6 +1,8 @@
 #ifndef Debug_h__
 #define Debug_h__
 
-#define ASSERT(exp) 
+#include <cstdlib>
+
+#define ASSERT(exp) if(!(exp)) abort();
 
 #endif // Debug_h__

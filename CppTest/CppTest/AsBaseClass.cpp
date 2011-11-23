@@ -2,8 +2,6 @@
 #include "AsBaseClass.h"
 #include "AsMainClass.h"
  
-__TYPENAME_CPP(AsBaseClass,AsObject)
- 
  
 AsBaseClass_ref AsBaseClass::__createAsBaseClass()
 {
