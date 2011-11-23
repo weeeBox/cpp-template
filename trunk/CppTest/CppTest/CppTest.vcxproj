@@ -79,7 +79,10 @@
     <ClCompile Include="AsClassA.cpp" />
     <ClCompile Include="AsClassB.cpp" />
     <ClCompile Include="AsClassC.cpp" />
+    <ClCompile Include="AsFoo.cpp" />
     <ClCompile Include="AsMainClass.cpp" />
+    <ClCompile Include="AsString.cpp" />
+    <ClCompile Include="AsVector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="AsObject.cpp" />
   </ItemGroup>
@@ -89,8 +92,11 @@
     <ClInclude Include="AsClassA.h" />
     <ClInclude Include="AsClassB.h" />
     <ClInclude Include="AsClassC.h" />
+    <ClInclude Include="AsFoo.h" />
     <ClInclude Include="AsMainClass.h" />
     <ClInclude Include="AsObject.h" />
+    <ClInclude Include="AsString.h" />
+    <ClInclude Include="AsVector.h" />
     <ClInclude Include="Debug.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

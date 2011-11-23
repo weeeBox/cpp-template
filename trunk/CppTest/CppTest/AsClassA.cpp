@@ -2,8 +2,6 @@
 #include "AsClassA.h"
 #include "AsClassB.h"
  
-__TYPENAME_CPP(AsClassA,AsBaseClass)
- 
  
 AsClassA_ref AsClassA::__createAsClassA()
 {
