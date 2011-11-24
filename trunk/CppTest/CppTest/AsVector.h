@@ -35,33 +35,45 @@ public:
 
 /////////////////////////////////////////////////////////////////////////
 
-template <class T> class ObjectVector : public VectorBase
+template <class T> class AsVector : public VectorBase
 {
 public:
-	class Ref : public _ref<ObjectVector>
+	class Ref : public _ref<AsVector>
 	{
 	public:
 		Ref() : _ref() {}
-		Ref(ObjectVector* obj) : _ref(obj) {}		
+		Ref(AsVector* obj) : _ref(obj) {}		
 		Ref(const Ref& ref) : _ref(ref) {};
 
 		explicit Ref(bool isStatic) : _ref(isStatic) {}
 
-		inline Ref& operator << (const T& val) { ((ObjectVector*)m_object)->__internalAdd(val); return *this; }
-		inline T& operator[] (int index) { return (*(ObjectVector*)m_object)[index]; }
+		inline Ref& operator << (const T& val) { ((AsVector*)m_object)->__internalAdd(val); return *this; }
+		inline T& operator[] (int index) { return (*(AsVector*)m_object)[index]; }
+	};
+
+	class VectorIterator
+	{
+	private:
+		int m_index;
+		Ref m_vector;
+	public:
+		VectorIterator(const Ref& vector) : m_index(0), m_vector(vector) {}
+
+		inline BOOL hasNext() {	return m_index + 1 < m_vector->getLength();	}
+		inline const T& next() { ASSERT(hasNext()); return m_vector[++m_index]; }
 	};
 
 public:
-	__TYPENAME(ObjectVector, VectorBase);
+	__TYPENAME(AsVector, VectorBase);
 
 public:
 
-	ObjectVector(int size);
+	AsVector(int size);
 
 	inline T& operator[] (int index) { ASSERT(index >= 0 && index < m_length); return ((T*)m_data)[index]; }	
 
 public:
-	static Ref __createVector(int size) { ASSERT(size >= 0); return Ref(new ObjectVector(size)); }
+	static Ref __createVector(int size) { ASSERT(size >= 0); return Ref(new AsVector(size)); }
 
 	void __internalAdd(const T& element)
 	{
@@ -75,18 +87,20 @@ public:
 		(*this)[m_length++] = element;
 	}
 
+	inline VectorIterator __internalIterator() { return VectorIterator(this); }
+
 	void __internalGc();
 
 private:
 	inline void __nullifyRange(int start, int end);
 };
 
-template <class T> ObjectVector<T>::ObjectVector(int size) : VectorBase(size, sizeof(AsObject_ref))
+template <class T> AsVector<T>::AsVector(int size) : VectorBase(size, sizeof(AsObject_ref))
 {
 	__nullifyRange(0, size);
 }
 
-template <class T> void ObjectVector<T>::__internalGc()
+template <class T> void AsVector<T>::__internalGc()
 {
 	if(__internalGcNeeded())
 	{
@@ -99,11 +113,11 @@ template <class T> void ObjectVector<T>::__internalGc()
 	}
 }
 
-template <class T> void ObjectVector<T>::__nullifyRange(int start, int end)
+template <class T> void AsVector<T>::__nullifyRange(int start, int end)
 {	
 	for (int i = start; i < end; ++i)
 	{		
-		((AsObject_ref*)m_data)[i] = __NULL;
+		((T*)m_data)[i] = 0;
 	}
 }
 
