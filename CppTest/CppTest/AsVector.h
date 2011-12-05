@@ -5,8 +5,6 @@
  
 #include "AsObject.h"
  
-class AsVector;
-typedef _ref<AsVector> AsVector_ref;
 class AsObject;
 typedef _ref<AsObject> AsObject_ref;
 class AsString;
