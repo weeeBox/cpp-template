@@ -9,4 +9,6 @@
 #define NULL 0
 #endif
 
+#include "AsVector.h"
+
 #endif // AsBase_h__

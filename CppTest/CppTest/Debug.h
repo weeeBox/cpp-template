@@ -2,6 +2,7 @@
 #define Debug_h__
 
 #include <cstdlib>
+#include <iostream>
 
 #define ASSERT(exp) if(!(exp)) abort();
 

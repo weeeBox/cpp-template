@@ -47,6 +47,7 @@ public:
 
 		inline Ref& operator << (const T& val) { ((AsVector*)m_object)->__internalAdd(val); return *this; }
 		inline T& operator[] (int index) { return (*(AsVector*)m_object)[index]; }
+		inline Ref& operator=(const AsObject_ref& ref) { set(ref.m_object); return *this; }
 	};
 
 	class VectorIterator
@@ -57,8 +58,8 @@ public:
 	public:
 		VectorIterator(const Ref& vector) : m_index(0), m_vector(vector) {}
 
-		inline BOOL hasNext() {	return m_index + 1 < m_vector->getLength();	}
-		inline const T& next() { ASSERT(hasNext()); return m_vector[++m_index]; }
+		inline BOOL hasNext() {	return m_index < m_vector->getLength();	}
+		inline const T& next() { ASSERT(hasNext()); return m_vector[m_index++]; }
 	};
 
 public:
@@ -115,7 +116,7 @@ template <class T> void AsVector<T>::__nullifyRange(int start, int end)
 {	
 	for (int i = start; i < end; ++i)
 	{		
-		((T*)m_data)[i] = 0;
+		((T*)m_data)[i] = __NULL;
 	}
 }
 

@@ -103,11 +103,7 @@ public:
 
 	inline T* operator->() const { ASSERT(m_object); return (T*)m_object; }
 
-	inline _ref& operator=(const _ref& ref)
-	{
-		set(ref.m_object);
-		return *this;
-	}
+	inline _ref& operator=(const _ref& ref) { set(ref.m_object); return *this; }
 };
 
 //////////////////////////////////////////////////////////////////////////
