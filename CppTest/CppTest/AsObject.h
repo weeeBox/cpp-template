@@ -33,6 +33,7 @@ public:
 
 #define __NEW(objType, initializer) objType::__create##objType initializer
 #define __NEWVECTOR(vectorType, size) vectorType::__createVector(size)
+#define __BOX(interfaceType, initializer) interfaceType::__internalBox initializer
 
 #define __NULL AsObject::__null__
 
@@ -53,6 +54,9 @@ public:
 
 	inline bool operator == (const ReferenceBase& ref) { return m_object == ref.m_object; }
 	inline bool operator != (const ReferenceBase& ref) { return m_object != ref.m_object; }	
+
+	inline bool operator == (const ReferenceBase& ref) const { return m_object == ref.m_object; }
+	inline bool operator != (const ReferenceBase& ref) const { return m_object != ref.m_object; }	
 
 	static bool __initStatics();
 	static void __destroyStatics();
