@@ -93,6 +93,8 @@
     <ClInclude Include="AsClassB.h" />
     <ClInclude Include="AsClassC.h" />
     <ClInclude Include="AsFoo.h" />
+    <ClInclude Include="AsIFooInterface.h" />
+    <ClInclude Include="AsInterface.h" />
     <ClInclude Include="AsMainClass.h" />
     <ClInclude Include="AsObject.h" />
     <ClInclude Include="AsString.h" />
