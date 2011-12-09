@@ -9,6 +9,8 @@
 #define NULL 0
 #endif
 
+#define __TYPEREF_DEF(typeName) class typeName; typedef _ref<typeName> typeName##_ref;
+
 #include "AsVector.h"
 
 #endif // AsBase_h__
