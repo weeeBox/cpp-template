@@ -50,13 +50,13 @@ public:
 		inline Ref& operator=(const AsObject_ref& ref) { set(ref.m_object); return *this; }
 	};
 
-	class VectorIterator
+	class Iterator
 	{
 	private:
 		int m_index;
 		Ref m_vector;
 	public:
-		VectorIterator(const Ref& vector) : m_index(0), m_vector(vector) {}
+		Iterator(const Ref& vector) : m_index(0), m_vector(vector) {}
 
 		inline BOOL hasNext() {	return m_index < m_vector->getLength();	}
 		inline const T& next() { ASSERT(hasNext()); return m_vector[m_index++]; }
@@ -86,7 +86,7 @@ public:
 		(*this)[m_length++] = element;
 	}
 
-	inline VectorIterator __internalIterator() { return VectorIterator(this); }
+	inline Iterator __internalIterator() { return Iterator(this); }
 
 	void __internalGc();
 
